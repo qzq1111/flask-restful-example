@@ -1,0 +1,15 @@
+zh_CN: &zh
+  0: "成功"
+  -1: "失败"
+  40001: "资源不存在"
+  40002: "参数无效"
+  40003: "账户或密码错误"
+
+en:
+  <<: *zh
+  # 英文编码
+  0: "success"
+  -1: "fail"
+  40001: "No resources found"
+  40002: "Invalid argument"
+  40003: "Incorrect account or password"

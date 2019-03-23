@@ -1,0 +1,23 @@
+COMMON: &common #标识
+  DEBUG: False
+  SECRET_KEY: insecure
+
+  # 日志配置文件路径
+  LOGGING_CONFIG_PATH: ./config/logging.yaml
+  # 日志文件存放位置
+  LOGGING_PATH: ./logs
+
+  # 响应消息
+  RESPONSE_MESSAGE: ./config/msg.yaml
+
+DEVELOPMENT: &development
+  <<: *common # 继承common，没有重新定义的变量，使用common变量值
+  DEBUG: True
+
+STAGING: &staging
+  <<: *common
+  SECRET_KEY: sortasecure
+
+PRODUCTION: &production
+  <<: *common
+  SECRET_KEY: mdd1##$$%^!DSA#FDSF
