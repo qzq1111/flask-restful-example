@@ -2,6 +2,9 @@ COMMON: &common #标识
   DEBUG: False
   SECRET_KEY: insecure
 
+  # 数据库连接
+  SQLALCHEMY_DATABASE_URI: 'mysql+pymysql://root:mad123@localhost:3306/test?charset=utf8mb4'
+  SQLALCHEMY_TRACK_MODIFICATIONS: False
   # 日志配置文件路径
   LOGGING_CONFIG_PATH: ./config/logging.yaml
   # 日志文件存放位置

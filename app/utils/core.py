@@ -3,6 +3,9 @@ import decimal
 import uuid
 
 from flask.json import JSONEncoder as BaseJSONEncoder
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 
 class JSONEncoder(BaseJSONEncoder):

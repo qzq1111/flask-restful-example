@@ -4,7 +4,7 @@ import yaml
 import os
 from flask import Flask
 
-from app.utils.core import JSONEncoder
+from app.utils.core import JSONEncoder, db
 
 
 def create_app(config_name, config_path=None):
@@ -26,6 +26,10 @@ def create_app(config_name, config_path=None):
 
     # 返回json格式转换
     app.json_encoder = JSONEncoder
+
+    # 注册数据库连接
+    db.app = app
+    db.init_app(app)
 
     # 日志文件目录
     if not os.path.exists(app.config['LOGGING_PATH']):
