@@ -24,6 +24,16 @@ def create_app(config_name, config_path=None):
     from app.api.api_test import bp
     app.register_blueprint(bp)
 
+    # 注册单表接口
+    from app.api.services import ArticleAPI
+
+    article_view = ArticleAPI.as_view('article_api')
+    app.add_url_rule('/article/', defaults={'key': None},
+                     view_func=article_view, methods=['GET', ])
+    app.add_url_rule('/article/', view_func=article_view, methods=['POST', ])
+    app.add_url_rule('/article/<string:key>', view_func=article_view,
+                     methods=['GET', 'PUT', 'DELETE'])
+
     # 返回json格式转换
     app.json_encoder = JSONEncoder
 
