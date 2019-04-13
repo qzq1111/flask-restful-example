@@ -5,7 +5,7 @@ from datetime import datetime
 from decimal import Decimal
 from app.utils.code import ResponseCode
 from app.utils.response import ResMsg
-from app.utils.util import route
+from app.utils.util import route, Redis
 
 bp = Blueprint("test", __name__, url_prefix='/')
 
@@ -29,7 +29,7 @@ def test_logger():
     return "ok"
 
 
-@bp.route("/unified_response", methods=["GET"])
+@bp.route("/unifiedResponse", methods=["GET"])
 def test_unified_response():
     """
     测试统一返回消息
@@ -44,7 +44,7 @@ def test_unified_response():
 # --------------使用自定义封装--------------------
 
 
-@route(bp, '/packed_response', methods=["GET"])
+@route(bp, '/packedResponse', methods=["GET"])
 def test_packed_response():
     """
     测试响应封装
@@ -59,7 +59,7 @@ def test_packed_response():
     return res.data
 
 
-@route(bp, '/type_response', methods=["GET"])
+@route(bp, '/typeResponse', methods=["GET"])
 def test_type_response():
     """
     测试返回不同的类型
@@ -75,3 +75,24 @@ def test_type_response():
     # 此处不再需要用jsonify，如果需要定制返回头或者http响应如下所示
     # return res.data,200,{"token":"111"}
     return res.data
+
+
+# --------------Redis测试封装--------------------
+
+@route(bp, '/testRedisWrite', methods=['GET'])
+def test_redis_write():
+    """
+    测试redis写入
+    """
+    # 写入
+    Redis.write("test_key", "test_value", 60)
+    return "ok"
+
+
+@route(bp, '/testRedisRead', methods=['GET'])
+def test_redis_read():
+    """
+    测试redis获取
+    """
+    data = Redis.read("test_key")
+    return data

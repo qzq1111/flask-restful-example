@@ -16,6 +16,12 @@ COMMON: &common #标识
   # 响应消息
   RESPONSE_MESSAGE: ./config/msg.yaml
 
+  # redis配置
+  REDIS_EXPIRE: 60*60
+  REDIS_HOST: 127.0.0.1
+  REDIS_PORT: 6379
+  REDIS_DB: 1
+
 DEVELOPMENT: &development
   <<: *common # 继承common，没有重新定义的变量，使用common变量值
   DEBUG: True

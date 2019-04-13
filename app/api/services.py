@@ -9,6 +9,8 @@ from app.api.base import Service
 from app.models.model import *
 
 
+# --------------单表接口测试封装--------------------
+
 class ArticleAPI(Service):
     """
     文章单表接口
