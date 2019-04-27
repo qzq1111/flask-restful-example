@@ -1,10 +1,12 @@
+import atexit
 import logging
 import logging.config
+import platform
 import yaml
 import os
 from flask import Flask
 
-from app.utils.core import JSONEncoder, db
+from app.utils.core import JSONEncoder, db, scheduler
 
 
 def create_app(config_name, config_path=None):
@@ -41,6 +43,9 @@ def create_app(config_name, config_path=None):
     db.app = app
     db.init_app(app)
 
+    # 启动定时任务
+    scheduler_init(app)
+
     # 日志文件目录
     if not os.path.exists(app.config['LOGGING_PATH']):
         os.mkdir(app.config['LOGGING_PATH'])
@@ -72,3 +77,46 @@ def read_yaml(config_name, config_path):
             raise KeyError('未找到对应的配置信息')
     else:
         raise ValueError('请输入正确的配置名称或配置文件路径')
+
+
+def scheduler_init(app):
+    """
+    保证系统只启动一次定时任务
+    :param app:
+    :return:
+    """
+    if platform.system() != 'Windows':
+        fcntl = __import__("fcntl")
+        f = open('scheduler.lock', 'wb')
+        try:
+            fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            scheduler.init_app(app)
+            scheduler.start()
+            app.logger.debug('Scheduler Started,---------------')
+        except:
+            pass
+
+        def unlock():
+            fcntl.flock(f, fcntl.LOCK_UN)
+            f.close()
+
+        atexit.register(unlock)
+    else:
+        msvcrt = __import__('msvcrt')
+        f = open('scheduler.lock', 'wb')
+        try:
+            msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
+            scheduler.init_app(app)
+            scheduler.start()
+            app.logger.debug('Scheduler Started,----------------')
+        except:
+            pass
+
+        def _unlock_file():
+            try:
+                f.seek(0)
+                msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+            except:
+                pass
+
+        atexit.register(_unlock_file)
