@@ -11,6 +11,7 @@ flask后端开发接口示例
 7. [Flask后端实践  连载七 Flask使用redis数据库](https://blog.csdn.net/qq_22034353/article/details/89107062)
 8. [Flask后端实践  连载八 Docker+Gunicorn+Nginx部署Flask后端](https://blog.csdn.net/qq_22034353/article/details/89289404)
 9. [Flask后端实践  连载九 Flask-APScheduler定时任务与坑点解决方法](https://blog.csdn.net/qq_22034353/article/details/89362959)
+10. [Flask后端实践  连载十 Flask图形验证码生成及验证](https://blog.csdn.net/qq_22034353/article/details/89631320)
 
 ## 部署
 
