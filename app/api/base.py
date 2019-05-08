@@ -314,7 +314,7 @@ class Service(BaseParse, BaseQuery, MethodView):
             if data:
                 res.update(data=data)
             else:
-                res.update(code=ResponseCode.NO_RESOURCE_FOUND)
+                res.update(code=ResponseCode.NoResourceFound)
         else:
             query, by = self._parse_query_field()
             page, size = self._parse_page_size()
@@ -323,7 +323,7 @@ class Service(BaseParse, BaseQuery, MethodView):
             if data:
                 res.update(data=data)
             else:
-                res.update(code=ResponseCode.NO_RESOURCE_FOUND)
+                res.update(code=ResponseCode.NoResourceFound)
             res.add_field(name='total', value=cnt)
             res.add_field(name='page', value=page + 1)
             res.add_field(name='size', value=size)
@@ -341,9 +341,9 @@ class Service(BaseParse, BaseQuery, MethodView):
         data = self._parse_create_field()
         if data:
             if not self._create(args=data):
-                res.update(code=ResponseCode.FAIL)
+                res.update(code=ResponseCode.Fail)
         else:
-            res.update(code=ResponseCode.INVALID_PARAMETER)
+            res.update(code=ResponseCode.InvalidParameter)
         return res.data
 
     def put(self, key=None):
@@ -353,11 +353,11 @@ class Service(BaseParse, BaseQuery, MethodView):
         """
         res = ResMsg()
         if key is None:
-            res.update(code=ResponseCode.INVALID_PARAMETER)
+            res.update(code=ResponseCode.InvalidParameter)
         else:
             data = self._parse_field()
             if not self._update(key=key, kwargs=data):
-                res.update(code=ResponseCode.FAIL)
+                res.update(code=ResponseCode.Fail)
         return res.data
 
     def delete(self, key=None):
@@ -367,7 +367,7 @@ class Service(BaseParse, BaseQuery, MethodView):
         """
         res = ResMsg()
         if key is None:
-            res.update(code=ResponseCode.INVALID_PARAMETER)
+            res.update(code=ResponseCode.InvalidParameter)
         elif not self._delete(key=key):
-            res.update(code=ResponseCode.FAIL)
+            res.update(code=ResponseCode.Fail)
         return res.data
