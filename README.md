@@ -12,7 +12,7 @@ flask后端开发接口示例
 8. [Flask后端实践  连载八 Docker+Gunicorn+Nginx部署Flask后端](https://blog.csdn.net/qq_22034353/article/details/89289404)
 9. [Flask后端实践  连载九 Flask-APScheduler定时任务与坑点解决方法](https://blog.csdn.net/qq_22034353/article/details/89362959)
 10. [Flask后端实践  连载十 Flask图形验证码生成及验证](https://blog.csdn.net/qq_22034353/article/details/89631320)
-
+11.  [Flask后端实践  番外篇 Docker部署优化](https://blog.csdn.net/qq_22034353/article/details/89950228)
 ## 部署
 
 
