@@ -6,6 +6,7 @@ from decimal import Decimal
 from app.utils.code import ResponseCode
 from app.utils.response import ResMsg
 from app.utils.util import route, Redis, CaptchaTool
+from app.utils.auth import Auth, login_required
 
 bp = Blueprint("test", __name__, url_prefix='/')
 
@@ -99,6 +100,7 @@ def test_redis_read():
 
 
 # -----------------图形验证码测试---------------------------#
+
 @route(bp, '/testGetCaptcha', methods=["GET"])
 def test_get_captcha():
     """
@@ -130,4 +132,76 @@ def test_verify_captcha():
     if code != s_code:
         res.update(code=ResponseCode.VerificationCodeError)
         return res.data
+    return res.data
+
+
+# --------------------JWT测试-----------------------------------------#
+
+@route(bp, '/testLogin', methods=["POST"])
+def test_login():
+    """
+    登陆成功获取到数据获取token和刷新token
+    :return:
+    """
+    res = ResMsg()
+    obj = request.get_json(force=True)
+    user_name = obj.get("name")
+    # 未获取到参数或参数不存在
+    if not obj or not user_name:
+        res.update(code=ResponseCode.InvalidParameter)
+        return res.data
+
+    if user_name == "qin":
+        # 生成数据获取token和刷新token
+        access_token, refresh_token = Auth.encode_auth_token(user_id=user_name)
+
+        data = {"access_token": access_token.decode("utf-8"),
+                "refresh_token": refresh_token.decode("utf-8")
+                }
+        res.update(data=data)
+        return res.data
+    else:
+        res.update(code=ResponseCode.AccountOrPassWordErr)
+        return res.data
+
+
+@route(bp, '/testGetData', methods=["GET"])
+@login_required
+def test_get_data():
+    """
+    测试登陆保护下获取数据
+    :return:
+    """
+    res = ResMsg()
+    name = session.get("user_name")
+    data = "{}，你好！！".format(name)
+    res.update(data=data)
+    return res.data
+
+
+@route(bp, '/testRefreshToken', methods=["GET"])
+def test_refresh_token():
+    """
+    刷新token，获取新的数据获取token
+    :return:
+    """
+    res = ResMsg()
+    refresh_token = request.args.get("refresh_token")
+    if not refresh_token:
+        res.update(code=ResponseCode.InvalidParameter)
+        return res.data
+    payload = Auth.decode_auth_token(refresh_token)
+    # token被串改或过期
+    if not payload:
+        res.update(code=ResponseCode.PleaseSignIn)
+        return res.data
+
+    # 判断token正确性
+    if "user_id" not in payload:
+        res.update(code=ResponseCode.PleaseSignIn)
+        return res.data
+    # 获取新的token
+    access_token = Auth.generate_access_token(user_id=payload["user_id"])
+    data = {"access_token": access_token.decode("utf-8"), "refresh_token": refresh_token}
+    res.update(data=data)
     return res.data

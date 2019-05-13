@@ -4,7 +4,8 @@ zh_CN: &zh
   40001: "资源不存在"
   40002: "参数无效"
   40003: "账户或密码错误"
-  40004:  "验证码错误"
+  40004: "验证码错误"
+  40005: "请登陆"
 
 en:
   <<: *zh
@@ -14,4 +15,5 @@ en:
   40001: "No resources found"
   40002: "Invalid argument"
   40003: "Incorrect account or password"
-  40004:  "Verification code error"
+  40004: "Verification code error"
+  40005: "Please sign in"
