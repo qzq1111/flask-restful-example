@@ -16,5 +16,7 @@ class ArticleAPI(Service):
     文章单表接口
     """
     __model__ = Article
+    # 指定需要启用的请求方法
+    __methods__ = ["GET", "POST", "PUT", "DELETE"]
 
     service_name = 'article'

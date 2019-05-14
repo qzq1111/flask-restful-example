@@ -4,9 +4,10 @@ import logging.config
 import platform
 import yaml
 import os
-from flask import Flask
+from flask import Flask, Blueprint
 
 from app.utils.core import JSONEncoder, db, scheduler
+from app.api.router import router
 
 
 def create_app(config_name, config_path=None):
@@ -22,19 +23,8 @@ def create_app(config_name, config_path=None):
     conf = read_yaml(config_name, config_path)
     app.config.update(conf)
 
-    # 注册蓝图
-    from app.api.api_test import bp
-    app.register_blueprint(bp)
-
-    # 注册单表接口
-    from app.api.services import ArticleAPI
-
-    article_view = ArticleAPI.as_view('article_api')
-    app.add_url_rule('/article/', defaults={'key': None},
-                     view_func=article_view, methods=['GET', ])
-    app.add_url_rule('/article/', view_func=article_view, methods=['POST', ])
-    app.add_url_rule('/article/<string:key>', view_func=article_view,
-                     methods=['GET', 'PUT', 'DELETE'])
+    # 注册接口
+    register_api(app=app, routers=router)
 
     # 返回json格式转换
     app.json_encoder = JSONEncoder
@@ -77,6 +67,29 @@ def read_yaml(config_name, config_path):
             raise KeyError('未找到对应的配置信息')
     else:
         raise ValueError('请输入正确的配置名称或配置文件路径')
+
+
+def register_api(app, routers):
+    for router_api in routers:
+        if isinstance(router_api, Blueprint):
+            app.register_blueprint(router_api)
+        else:
+            try:
+                endpoint = router_api.__name__
+                view_func = router_api.as_view(endpoint)
+                # url默认为类名小写
+                url = '/{}/'.format(router_api.__name__.lower())
+                if 'GET' in router_api.__methods__:
+                    app.add_url_rule(url, defaults={'key': None}, view_func=view_func, methods=['GET', ])
+                    app.add_url_rule('{}<string:key>'.format(url), view_func=view_func, methods=['GET', ])
+                if 'POST' in router_api.__methods__:
+                    app.add_url_rule(url, view_func=view_func, methods=['POST', ])
+                if 'PUT' in router_api.__methods__:
+                    app.add_url_rule('{}<string:key>'.format(url), view_func=view_func, methods=['PUT', ])
+                if 'DELETE' in router_api.__methods__:
+                    app.add_url_rule('{}<string:key>'.format(url), view_func=view_func, methods=['DELETE', ])
+            except Exception as e:
+                raise ValueError(e)
 
 
 def scheduler_init(app):

@@ -12,9 +12,9 @@ flask后端开发接口示例
 8. [Flask后端实践  连载八 Docker+Gunicorn+Nginx部署Flask后端](https://blog.csdn.net/qq_22034353/article/details/89289404)
 9. [Flask后端实践  连载九 Flask-APScheduler定时任务与坑点解决方法](https://blog.csdn.net/qq_22034353/article/details/89362959)
 10. [Flask后端实践  连载十 Flask图形验证码生成及验证](https://blog.csdn.net/qq_22034353/article/details/89631320)
-11.  [Flask后端实践  番外篇 Docker部署优化](https://blog.csdn.net/qq_22034353/article/details/89950228)
+11. [Flask后端实践  番外篇 Docker部署优化](https://blog.csdn.net/qq_22034353/article/details/89950228)
 12. [Flask后端实践  连载十一 Flask实现JsonWebToken的用户认证授权](https://blog.csdn.net/qq_22034353/article/details/90045811)
-13. Flask后端实践  连载十二 Flask优雅的注册蓝图及自定义API
+13. [Flask后端实践  连载十二 Flask优雅的注册蓝图及自定义MethodView](https://blog.csdn.net/qq_22034353/article/details/90045818)
 14. Flask后端实践  连载十三 Flask输出Excel报表
 15. Flask后端实践  连载十四 Flask输出World报表
 16. Flask后端实践  连载十五 Flask实现自关联无限层级(目录树)处理
