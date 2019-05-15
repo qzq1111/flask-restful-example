@@ -34,11 +34,16 @@ def create_app(config_name, config_path=None):
     db.init_app(app)
 
     # 启动定时任务
-    scheduler_init(app)
+    if app.config.get("SCHEDULER_OPEN"):
+        scheduler_init(app)
 
     # 日志文件目录
     if not os.path.exists(app.config['LOGGING_PATH']):
         os.mkdir(app.config['LOGGING_PATH'])
+
+    # 报表文件目录
+    if not os.path.exists(app.config['REPORT_PATH']):
+        os.mkdir(app.config['REPORT_PATH'])
 
     # 日志设置
     with open(app.config['LOGGING_CONFIG_PATH'], 'r', encoding='utf-8') as f:

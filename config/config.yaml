@@ -13,6 +13,9 @@ COMMON: &common #标识
   # 日志文件存放位置
   LOGGING_PATH: ./logs
 
+  # 报表文件目录
+  REPORT_PATH: ./report
+
   # 响应消息
   RESPONSE_MESSAGE: ./config/msg.yaml
 
@@ -22,19 +25,22 @@ COMMON: &common #标识
   REDIS_PORT: 6379
   REDIS_DB: 1
 
+  # 是否开启定时任务,默认不开启
+  SCHEDULER_OPEN: False
+
   # 定时任务配置
   SCHEDULER_API_ENABLED: True
   JOBS:
-  - id: my_job
-    func: app.task.task:my_job
-    trigger: cron
-    hour: 12
-    minute: 0
-  - id: db_query
-    func: app.task.task:db_query
-    trigger: cron
-    hour: 12
-    minute: 10
+    - id: my_job
+      func: app.task.task:my_job
+      trigger: cron
+      hour: 12
+      minute: 0
+    - id: db_query
+      func: app.task.task:db_query
+      trigger: cron
+      hour: 12
+      minute: 10
 
 
 DEVELOPMENT: &development

@@ -1,12 +1,14 @@
 import logging
-
-from flask import Blueprint, jsonify, session, request
+import uuid
+import os
+from flask import Blueprint, jsonify, session, request, current_app
 from datetime import datetime
 from decimal import Decimal
 from app.utils.code import ResponseCode
 from app.utils.response import ResMsg
 from app.utils.util import route, Redis, CaptchaTool
 from app.utils.auth import Auth, login_required
+from app.api.report import excel_write
 
 bp = Blueprint("test", __name__, url_prefix='/')
 
@@ -204,4 +206,22 @@ def test_refresh_token():
     access_token = Auth.generate_access_token(user_id=payload["user_id"])
     data = {"access_token": access_token.decode("utf-8"), "refresh_token": refresh_token}
     res.update(data=data)
+    return res.data
+
+
+# --------------------测试Excel报表输出-------------------------------#
+
+@route(bp, '/testExcel', methods=["GET"])
+def test_excel():
+    """
+    测试报表输出
+    :return:
+    """
+    res = ResMsg()
+    report_path = current_app.config.get("REPORT_PATH","./report")
+    file_name = "{}.xlsx".format(uuid.uuid4().hex)
+    path = os.path.join(report_path, file_name)
+    path = excel_write(path)
+    path = path.lstrip(".")
+    res.update(data=path)
     return res.data
