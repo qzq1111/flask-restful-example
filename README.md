@@ -16,7 +16,7 @@ flask后端开发接口示例
 12. [Flask后端实践  连载十一 Flask实现JsonWebToken的用户认证授权](https://blog.csdn.net/qq_22034353/article/details/90045811)
 13. [Flask后端实践  连载十二 Flask优雅的注册蓝图及自定义MethodView](https://blog.csdn.net/qq_22034353/article/details/90045818)
 14. [Flask后端实践  连载十三 Flask输出Excel报表](https://blog.csdn.net/qq_22034353/article/details/90234986)
-15. Flask后端实践  连载十四 Flask输出World报表
+15. [Flask后端实践  连载十四 Flask输出World报表](https://blog.csdn.net/qq_22034353/article/details/90373814)
 16. Flask后端实践  连载十五 Flask实现自关联无限层级(目录树)处理
 17. Flask后端实践  连载十六 Flask实现微信Web端及APP端登录注册
 18. Flask后端实践  连载十七 Flask实现手机号登录注册

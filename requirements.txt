@@ -22,3 +22,4 @@ Werkzeug==0.15.1
 Pillow==6.0.0
 PyJWT==1.7.1
 XlsxWriter==1.1.8
+docxtpl==0.5.17

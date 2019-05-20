@@ -13,6 +13,9 @@ COMMON: &common #标识
   # 日志文件存放位置
   LOGGING_PATH: ./logs
 
+  # word报表模板文件目录
+  REPORT_TEMPLATES: ./word_templates
+
   # 报表文件目录
   REPORT_PATH: ./report
 

@@ -8,7 +8,7 @@ from app.utils.code import ResponseCode
 from app.utils.response import ResMsg
 from app.utils.util import route, Redis, CaptchaTool
 from app.utils.auth import Auth, login_required
-from app.api.report import excel_write
+from app.api.report import excel_write,word_write
 
 bp = Blueprint("test", __name__, url_prefix='/')
 
@@ -214,14 +214,32 @@ def test_refresh_token():
 @route(bp, '/testExcel', methods=["GET"])
 def test_excel():
     """
-    测试报表输出
+    测试excel报表输出
     :return:
     """
     res = ResMsg()
-    report_path = current_app.config.get("REPORT_PATH","./report")
+    report_path = current_app.config.get("REPORT_PATH", "./report")
     file_name = "{}.xlsx".format(uuid.uuid4().hex)
     path = os.path.join(report_path, file_name)
     path = excel_write(path)
+    path = path.lstrip(".")
+    res.update(data=path)
+    return res.data
+
+
+# --------------------测试Word报表输出-------------------------------#
+
+@route(bp, '/testWord', methods=["GET"])
+def test_word():
+    """
+    测试word报表输出
+    :return:
+    """
+    res = ResMsg()
+    report_path = current_app.config.get("REPORT_PATH", "./report")
+    file_name = "{}.docx".format(uuid.uuid4().hex)
+    path = os.path.join(report_path, file_name)
+    path = word_write(path)
     path = path.lstrip(".")
     res.update(data=path)
     return res.data
