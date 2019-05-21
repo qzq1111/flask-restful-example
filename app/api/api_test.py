@@ -4,11 +4,13 @@ import os
 from flask import Blueprint, jsonify, session, request, current_app
 from datetime import datetime
 from decimal import Decimal
+
+from app.api.tree import Tree
 from app.utils.code import ResponseCode
 from app.utils.response import ResMsg
 from app.utils.util import route, Redis, CaptchaTool
 from app.utils.auth import Auth, login_required
-from app.api.report import excel_write,word_write
+from app.api.report import excel_write, word_write
 
 bp = Blueprint("test", __name__, url_prefix='/')
 
@@ -242,4 +244,35 @@ def test_word():
     path = word_write(path)
     path = path.lstrip(".")
     res.update(data=path)
+    return res.data
+
+
+# --------------------测试无限层级目录树-------------------------------#
+
+@route(bp, '/testTree', methods=["GET"])
+def test_tree():
+    """
+    测试无限层级目录树
+    :return:
+    """
+    res = ResMsg()
+    data = [
+        {"id": 1, "father_id": None, "name": "01"},
+        {"id": 2, "father_id": 1, "name": "0101"},
+        {"id": 3, "father_id": 1, "name": "0102"},
+        {"id": 4, "father_id": 1, "name": "0103"},
+        {"id": 5, "father_id": 2, "name": "010101"},
+        {"id": 6, "father_id": 2, "name": "010102"},
+        {"id": 7, "father_id": 2, "name": "010103"},
+        {"id": 8, "father_id": 3, "name": "010201"},
+        {"id": 9, "father_id": 4, "name": "010301"},
+        {"id": 10, "father_id": 9, "name": "01030101"},
+        {"id": 11, "father_id": 9, "name": "01030102"},
+    ]
+
+    new_tree = Tree(data=data)
+
+    data = new_tree.build_tree()
+
+    res.update(data=data)
     return res.data
