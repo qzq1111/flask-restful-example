@@ -1,6 +1,5 @@
 from datetime import datetime
 from app.utils.core import db
-from sqlalchemy.sql import func
 
 
 class User(db.Model):
@@ -11,6 +10,18 @@ class User(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(20), nullable=False)  # 用户姓名
     age = db.Column(db.Integer, nullable=False)  # 用户年龄
+
+
+class UserLoginMethod(db.Model):
+    """
+    用户登陆验证表
+    """
+    __tablename__ = 'user_login_method'
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)  # 用户登陆方式主键ID
+    user_id = db.Column(db.Integer, nullable=False)  # 用户主键ID
+    login_method = db.Column(db.String(36), nullable=False)  # 用户登陆方式，WX微信，P手机
+    identification = db.Column(db.String(36), nullable=False)  # 用户登陆标识，微信ID或手机号
+    access_code = db.Column(db.String(36), nullable=True)  # 用户登陆通行码，密码或token
 
 
 class Article(db.Model):

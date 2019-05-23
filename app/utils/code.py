@@ -6,6 +6,7 @@ class ResponseCode(object):
     AccountOrPassWordErr = 40003  # 账户或密码错误
     VerificationCodeError = 40004  # 验证码错误
     PleaseSignIn = 40005  # 请登陆
+    WeChatAuthorizationFailure = 40006  # 微信授权失败
 
 
 class ResponseMessage(object):

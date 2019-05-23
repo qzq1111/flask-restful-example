@@ -45,6 +45,14 @@ COMMON: &common #标识
       hour: 12
       minute: 10
 
+  ## 微信Web端
+  WEB_ID: "123456789"
+  WEB_SECRET: "123456789"
+  ## 微信移动端
+  APP_ID: "123456789"
+  APP_SECRET: "123456789"
+
+
 
 DEVELOPMENT: &development
   <<: *common # 继承common，没有重新定义的变量，使用common变量值

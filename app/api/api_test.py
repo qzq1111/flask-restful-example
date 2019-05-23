@@ -11,6 +11,7 @@ from app.utils.response import ResMsg
 from app.utils.util import route, Redis, CaptchaTool
 from app.utils.auth import Auth, login_required
 from app.api.report import excel_write, word_write
+from app.api.wx_login_or_register import get_access_code, get_wx_user_info, login_or_register
 
 bp = Blueprint("test", __name__, url_prefix='/')
 
@@ -274,5 +275,39 @@ def test_tree():
 
     data = new_tree.build_tree()
 
+    res.update(data=data)
+    return res.data
+
+
+# --------------------测试微信登陆注册-------------------------------#
+@route(bp, '/testWXLoginOrRegister', methods=["GET"])
+def test_wx_login_or_register():
+    """
+    测试微信登陆注册
+    :return:
+    """
+    res = ResMsg()
+    code = request.args.get("code")
+    flag = request.args.get("flag")
+    # 参数错误
+    if code is None or flag is None:
+        res.update(code=ResponseCode.InvalidParameter)
+        return res.data
+    # 获取微信用户授权码
+    access_code = get_access_code(code=code, flag=flag)
+    if access_code is None:
+        res.update(code=ResponseCode.WeChatAuthorizationFailure)
+        return res.data
+    # 获取微信用户信息
+    wx_user_info = get_wx_user_info(access_data=access_code)
+    if wx_user_info is None:
+        res.update(code=ResponseCode.WeChatAuthorizationFailure)
+        return res.data
+
+    # 验证微信用户信息本平台是否有，
+    data = login_or_register(wx_user_info=wx_user_info)
+    if data is None:
+        res.update(code=ResponseCode.Fail)
+        return res.data
     res.update(data=data)
     return res.data

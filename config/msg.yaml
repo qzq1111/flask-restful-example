@@ -6,6 +6,7 @@ zh_CN: &zh
   40003: "账户或密码错误"
   40004: "验证码错误"
   40005: "请登陆"
+  40006: "微信授权失败"
 
 en:
   <<: *zh
@@ -17,3 +18,4 @@ en:
   40003: "Incorrect account or password"
   40004: "Verification code error"
   40005: "Please sign in"
+  40006: "WeChat Authorization Failure"
