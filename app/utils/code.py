@@ -7,6 +7,9 @@ class ResponseCode(object):
     VerificationCodeError = 40004  # 验证码错误
     PleaseSignIn = 40005  # 请登陆
     WeChatAuthorizationFailure = 40006  # 微信授权失败
+    InvalidOrExpired = 40007  # 验证码过期
+    MobileNumberError = 40008  # 手机号错误
+    FrequentOperation = 40009  # 操作频繁,请稍后再试
 
 
 class ResponseMessage(object):

@@ -1,17 +1,19 @@
 import logging
+import random
 import uuid
 import os
 from flask import Blueprint, jsonify, session, request, current_app
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 
 from app.api.tree import Tree
 from app.utils.code import ResponseCode
 from app.utils.response import ResMsg
-from app.utils.util import route, Redis, CaptchaTool
+from app.utils.util import route, Redis, CaptchaTool, PhoneTool
 from app.utils.auth import Auth, login_required
 from app.api.report import excel_write, word_write
-from app.api.wx_login_or_register import get_access_code, get_wx_user_info, login_or_register
+from app.api.wx_login_or_register import get_access_code, get_wx_user_info, wx_login_or_register
+from app.api.phone_login_or_register import SendSms, phone_login_or_register
 
 bp = Blueprint("test", __name__, url_prefix='/')
 
@@ -280,6 +282,7 @@ def test_tree():
 
 
 # --------------------测试微信登陆注册-------------------------------#
+
 @route(bp, '/testWXLoginOrRegister', methods=["GET"])
 def test_wx_login_or_register():
     """
@@ -305,7 +308,97 @@ def test_wx_login_or_register():
         return res.data
 
     # 验证微信用户信息本平台是否有，
-    data = login_or_register(wx_user_info=wx_user_info)
+    data = wx_login_or_register(wx_user_info=wx_user_info)
+    if data is None:
+        res.update(code=ResponseCode.Fail)
+        return res.data
+    res.update(data=data)
+    return res.data
+
+
+# --------------------测试手机短信验证码登陆注册-------------------------------#
+
+@route(bp, '/testGetVerificationCode', methods=["GET"])
+def test_get_verification_code():
+    """
+    获取手机验证码
+    :return:
+    """
+    now = datetime.now()
+    res = ResMsg()
+
+    category = request.args.get("category", None)
+    # category 参数如下：
+    # authentication: 身份验证
+    # login_confirmation: 登陆验证
+    # login_exception: 登陆异常
+    # user_registration: 用户注册
+    # change_password: 修改密码
+    # information_change: 信息修改
+
+    phone = request.args.get('phone', None)
+
+    # 验证手机号码正确性
+    re_phone = PhoneTool.check_phone(phone)
+    if phone is None or re_phone is None:
+        res.update(code=ResponseCode.MobileNumberError)
+        return res.data
+    if category is None:
+        res.update(code=ResponseCode.InvalidParameter)
+        return res.data
+
+    try:
+        # 获取手机验证码设置时间
+        flag = Redis.hget(re_phone, 'expire_time')
+        if flag is not None:
+            flag = datetime.strptime(flag, '%Y-%m-%d %H:%M:%S')
+            # 判断是否重复操作
+            if (flag - now).total_seconds() < 60:
+                res.update(code=ResponseCode.FrequentOperation)
+                return res.data
+
+        # 获取随机验证码
+        code = "".join([str(random.randint(0, 9)) for _ in range(6)])
+        template_param = {"code": code}
+        # 发送验证码
+        sms = SendSms(phone=re_phone, category=category, template_param=template_param)
+        sms.send_sms()
+        # 将验证码存入redis，方便接下来的验证
+        Redis.hset(re_phone, "code", code)
+        # 设置重复操作屏障
+        Redis.hset(re_phone, "expire_time", (now + timedelta(minutes=1)).strftime('%Y-%m-%d %H:%M:%S'))
+        # 设置验证码过去时间
+        Redis.expire(re_phone, 60 * 3)
+        return res.data
+    except Exception as e:
+        logger.exception(e)
+        res.update(code=ResponseCode.Fail)
+        return res.data
+
+
+@route(bp, '/testPhoneLoginOrRegister', methods=["POST"])
+def test_phone_login_or_register():
+    """
+    用户验证码登录或注册
+    :return:
+    """
+    res = ResMsg()
+
+    obj = request.get_json(force=True)
+    phone = obj.get('account', None)
+    code = obj.get('code', None)
+    if phone is None or code is None:
+        res.update(code=ResponseCode.InvalidParameter)
+        return res.data
+    # 验证手机号和验证码是否正确
+    flag = PhoneTool.check_phone_code(phone, code)
+    if not flag:
+        res.update(code=ResponseCode.InvalidOrExpired)
+        return res.data
+
+    # 登陆或注册
+    data = phone_login_or_register(phone)
+
     if data is None:
         res.update(code=ResponseCode.Fail)
         return res.data

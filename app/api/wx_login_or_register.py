@@ -104,7 +104,7 @@ def get_wx_user_info(access_data: dict):
         return None
 
 
-def login_or_register(wx_user_info):
+def wx_login_or_register(wx_user_info):
     """
     验证该用户是否注册本平台，如果未注册便注册后登陆，否则直接登陆。
     :param wx_user_info:拉取到的微信用户信息

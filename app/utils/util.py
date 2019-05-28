@@ -1,6 +1,7 @@
 import base64
 import io
 import random
+import re
 import string
 from functools import wraps
 
@@ -228,3 +229,45 @@ class CaptchaTool(object):
         self.im.save(buffered, format="JPEG")
         img_str = b"data:image/png;base64," + base64.b64encode(buffered.getvalue())
         return img_str, code
+
+
+class PhoneTool(object):
+    """
+    手机号码验证工具
+    """
+
+    @staticmethod
+    def check_phone_code(phone: str, code: str) -> bool:
+        """
+        验证手机号码与验证码是否正确
+        :param phone: 手机号码
+        :param code: 验证码
+        :return:
+        """
+        re_phone = PhoneTool.check_phone(phone)
+        if re_phone is None:
+            return False
+        r_code = Redis.hget(re_phone, "code")
+        if code == r_code:
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def check_phone(phone: str):
+        """
+        验证手机号是否为手机号码
+        :param phone:手机号码
+        :return:
+        """
+        if len(str(phone)) == 11:
+            # v_phone = re.match(r"\d{11}", phone)
+            v_phone = re.match(r'^1[3-9][0-9]{9}$', phone)
+            if v_phone is None:
+                return None
+            else:
+                phone = v_phone.group()
+
+                return phone
+        else:
+            return None
