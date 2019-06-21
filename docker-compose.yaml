@@ -8,14 +8,11 @@ services:
       - "3010:80"
     volumes:
       - ./logs:/projects/logs
+      - ./report:/projects/report
     links:
       - flask_redis
 
   flask_redis:
     image: redis:alpine
     container_name: flask_redis
-    restart: always
-  flask_mysql:
-    image: mysql:apline
-    container_name: flask_mysql
     restart: always

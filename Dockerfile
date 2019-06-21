@@ -8,6 +8,8 @@ RUN apk --update add --no-cache gcc
 RUN apk --update add --no-cache g++
 RUN apk --update add --no-cache tzdata
 RUN apk --update add --no-cache libffi-dev
+RUN apk --update add --no-cache libxslt-dev
+RUN apk --update add --no-cache jpeg-dev
 
 ENV  TIME_ZONE Asia/Shanghai
 ENV PIPURL "https://pypi.tuna.tsinghua.edu.cn/simple"

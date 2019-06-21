@@ -88,3 +88,4 @@ STAGING: &staging
 PRODUCTION: &production
   <<: *common
   SECRET_KEY: mdd1##$$%^!DSA#FDSF
+  REDIS_HOST: flask_redis
