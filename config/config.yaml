@@ -72,6 +72,9 @@ COMMON: &common #标识
   # 信息修改模板编码
   INFORMATION_CHANGE: "SMS_12345"
 
+  # 自定义字体路径
+  SIM_SUN: ./font
+
 
 
 DEVELOPMENT: &development

@@ -20,7 +20,7 @@ flask后端开发接口示例
 16. [Flask后端实践  连载十五 实现自关联无限层级生成目录树](https://blog.csdn.net/qq_22034353/article/details/90410549)
 17. [Flask后端实践  连载十六 Flask实现微信Web端及APP端登录注册](https://blog.csdn.net/qq_22034353/article/details/90480732)
 18. [Flask后端实践  连载十七 Flask实现手机验证码登录注册](https://blog.csdn.net/qq_22034353/article/details/90640981)
-19. Flask后端实践  连载十八 Flask输出PDF报表
+19. [Flask后端实践  连载十八 Flask输出PDF报表](https://blog.csdn.net/qq_22034353/article/details/93191167)
 
 ## 部署
 待完善

@@ -11,7 +11,7 @@ from app.utils.code import ResponseCode
 from app.utils.response import ResMsg
 from app.utils.util import route, Redis, CaptchaTool, PhoneTool
 from app.utils.auth import Auth, login_required
-from app.api.report import excel_write, word_write
+from app.api.report import excel_write, word_write, pdf_write
 from app.api.wx_login_or_register import get_access_code, get_wx_user_info, wx_login_or_register
 from app.api.phone_login_or_register import SendSms, phone_login_or_register
 
@@ -403,4 +403,22 @@ def test_phone_login_or_register():
         res.update(code=ResponseCode.Fail)
         return res.data
     res.update(data=data)
+    return res.data
+
+
+# --------------------测试PDF报表输出-------------------------------#
+
+@route(bp, '/testPDF', methods=["GET"])
+def test_pdf():
+    """
+    测试pdf报表输出
+    :return:
+    """
+    res = ResMsg()
+    report_path = current_app.config.get("REPORT_PATH", "./report")
+    file_name = "{}.pdf".format(uuid.uuid4().hex)
+    path = os.path.join(report_path, file_name)
+    path = pdf_write(path)
+    path = path.lstrip(".")
+    res.update(data=path)
     return res.data
