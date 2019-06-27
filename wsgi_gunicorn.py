@@ -1,3 +1,4 @@
-from app import factory
+from app.factory import create_app, celery_app
 
-app = factory.create_app(config_name="PRODUCTION")
+app = create_app(config_name="PRODUCTION")
+app.app_context().push()

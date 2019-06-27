@@ -25,4 +25,4 @@ COPY . .
 RUN pip --no-cache-dir install  -i ${PIPURL} --upgrade pip
 RUN pip --no-cache-dir install  -i ${PIPURL} -r requirements.txt
 
-CMD gunicorn  -c config/gun.conf wsgi_gunicorn:app
+CMD ./run.sh

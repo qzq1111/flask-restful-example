@@ -5,6 +5,7 @@ import platform
 import yaml
 import os
 from flask import Flask, Blueprint
+from app.celery import celery_app
 
 from app.utils.core import JSONEncoder, db, scheduler
 from app.api.router import router
@@ -22,6 +23,10 @@ def create_app(config_name, config_path=None):
     # 读取配置文件
     conf = read_yaml(config_name, config_path)
     app.config.update(conf)
+
+    # 更新Celery配置信息
+    celery_conf = "redis://{}:{}/{}".format(app.config['REDIS_HOST'], app.config['REDIS_PORT'], app.config['REDIS_DB'])
+    celery_app.conf.update({"broker_url": celery_conf, "result_backend": celery_conf})
 
     # 注册接口
     register_api(app=app, routers=router)

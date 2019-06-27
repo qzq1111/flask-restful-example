@@ -27,3 +27,4 @@ aliyun-python-sdk-core==2.13.4
 reportlab==3.5.23
 gunicorn==19.9.0
 eventlet==0.24.1
+celery==4.3.0

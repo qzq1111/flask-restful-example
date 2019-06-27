@@ -14,6 +14,7 @@ from app.utils.auth import Auth, login_required
 from app.api.report import excel_write, word_write, pdf_write
 from app.api.wx_login_or_register import get_access_code, get_wx_user_info, wx_login_or_register
 from app.api.phone_login_or_register import SendSms, phone_login_or_register
+from app.celery import add, flask_app_context
 
 bp = Blueprint("test", __name__, url_prefix='/')
 
@@ -422,3 +423,26 @@ def test_pdf():
     path = path.lstrip(".")
     res.update(data=path)
     return res.data
+
+
+# --------------------测试Celery-------------------------------#
+
+
+@route(bp, '/testCeleryAdd', methods=["GET"])
+def test_add():
+    """
+    测试相加
+    :return:
+    """
+    result = add.delay(1, 2)
+    return result.get(timeout=1)
+
+
+@route(bp, '/testCeleryFlaskAppContext', methods=["GET"])
+def test_flask_app_context():
+    """
+    测试相加
+    :return:
+    """
+    result = flask_app_context.delay()
+    return result.get(timeout=1)
