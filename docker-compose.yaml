@@ -1,8 +1,8 @@
 version: "2"
 services:
   flask_app:
-    image: flask_resful_example:latest
-    container_name: flask_resful_example
+    image: flask-restful-example:latest
+    container_name: flask-restful-example
     restart: always
     ports:
       - "3010:80"
