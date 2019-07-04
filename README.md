@@ -26,16 +26,16 @@ flask后端开发接口示例，利用Flask开发后端API接口。包含基本�
 
 ### 1. 拉取代码
 - 切换到`/projects`目录(没有就先新建目录`sudo mkdir /projects`)，执行命令`cd /projects`
-- 执行命令`sudo git clone https://github.com/qzq1111/flask-resful-example.git`拉取代码
-- 切换到`/projects/flask-resful-example`目录，执行命令`cd /projects/flask-resful-example`
+- 执行命令`sudo git clone https://github.com/qzq1111/flask-restful-example.git`拉取代码
+- 切换到`/projects/flask-restful-example`目录，执行命令`cd /projects/flask-restful-example`
        
 ### 2. 构建镜像
-- 在当前目录`/projects/flask-resful-example`中构建镜像
-- 执行命令`sudo docker build . -t=flask_resful_example:latest`构建，等待构建完成
-- 执行命令`sudo docker images`，查询构建好的镜像`flask_resful_example`
+- 在当前目录`/projects/flask-restful-example`中构建镜像
+- 执行命令`sudo docker build . -t=flask-restful-example:latest`构建，等待构建完成
+- 执行命令`sudo docker images`，查询构建好的镜像`flask-restful-example`
 
 ### 3. 运行容器
-- 在当前目录`/projects/flask-resful-example`中运行容器
+- 在当前目录`/projects/flask-restful-example`中运行容器
 - 执行命令`sudo docker-compose up -d`
 - 执行命令`sudo docker ps`查询容器是否运行
 
@@ -73,7 +73,7 @@ server {
         }
        # 报表下载
        location /report {
-         alias /projects/flask-resful-example;
+         alias /projects/flask-restful-example;
        }
     } 
 ```
