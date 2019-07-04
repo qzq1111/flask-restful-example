@@ -1,4 +1,4 @@
-# flask-resful-example
+# flask-restful-example
 flask后端开发接口示例，利用Flask开发后端API接口。包含基本的项目配置、统一响应、MySQL和Redis数据库操作、定时任务、图片生成、项目部署、用户权限认证、报表输出、无限层级生成目录树、阿里云手机验证码验证、微信授权等模块。
 
 ## 一、系列文章
