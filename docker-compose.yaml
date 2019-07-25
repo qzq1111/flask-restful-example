@@ -1,7 +1,7 @@
 version: "2"
 services:
   flask_app:
-    image: flask-restful-example:latest
+    image: registry.cn-hangzhou.aliyuncs.com/ci_test/flask-restful-example:latest
     container_name: flask-restful-example
     restart: always
     ports:
