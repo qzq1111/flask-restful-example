@@ -48,7 +48,7 @@ flask后端开发接口示例，利用Flask开发后端API接口。包含基本�
 #### 4.2 docker-compose配置
 - image：构建的镜像名称
 - container_name：启动之后容器名称
-- ports：容器端口与宿主断开映射
+- ports：容器端口与宿主端口映射
 - volumes：容器内部文件与宿主文件映射（持久化）
 - links：链接的容器，容器之间使用服务名访问
 
