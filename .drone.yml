@@ -11,18 +11,20 @@ steps:
       from_secret: sonar_token
 
 # 测试
-#- name: test
-#  image: python:3
-#  commands:
-#    - pip install -r requirements.txt
-#    - pytest
+- name: test
+  image: python:3
+  commands:
+    - pip install -r requirements.txt
+    - pytest
 
 # 构建代码docker镜像
 - name: code-build
   image: plugins/docker
   settings:
-    registry: registry.cn-shanghai.aliyuncs.com
-    repo: registry.cn-hangzhou.aliyuncs.com/ci_test/flask-restful-example
+    registry:
+      from_secret: docker_registry
+    repo:
+      from_secret: docker_repo
     username:
       from_secret: docker_name
     password:
