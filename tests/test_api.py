@@ -3,7 +3,7 @@ import os
 from app.factory import create_app
 
 
-class TestLogs(unittest.TestCase):
+class TestAPI(unittest.TestCase):
 
     def setUp(self):
         pwd = os.path.abspath(os.path.dirname(os.getcwd()))
