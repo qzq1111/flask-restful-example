@@ -1,0 +1,91 @@
+COMMON: &common #标识
+  DEBUG: False
+  SECRET_KEY: insecure
+  # 页码设置
+  DEFAULT_PAGE_INDEX: 1
+  DEFAULT_PAGE_SIZE: 10
+
+  # 数据库连接
+  SQLALCHEMY_DATABASE_URI: 'mysql+pymysql://root:mad123@localhost:3306/test?charset=utf8mb4'
+  SQLALCHEMY_TRACK_MODIFICATIONS: False
+  # 日志配置文件路径
+  LOGGING_CONFIG_PATH: ./config/logging.yaml
+  # 日志文件存放位置
+  LOGGING_PATH: ./logs
+
+  # word报表模板文件目录
+  REPORT_TEMPLATES: ./word_templates
+
+  # 报表文件目录
+  REPORT_PATH: ./report
+
+  # 响应消息
+  RESPONSE_MESSAGE: ./config/msg.yaml
+
+  # redis配置
+  REDIS_EXPIRE: 60*60
+  REDIS_HOST: 127.0.0.1
+  REDIS_PORT: 6379
+  REDIS_DB: 1
+
+  # 是否开启定时任务,默认不开启
+  SCHEDULER_OPEN: False
+
+  # 定时任务配置
+  SCHEDULER_API_ENABLED: True
+  JOBS:
+    - id: my_job
+      func: app.task.task:my_job
+      trigger: cron
+      hour: 12
+      minute: 0
+    - id: db_query
+      func: app.task.task:db_query
+      trigger: cron
+      hour: 12
+      minute: 10
+
+  # 微信Web端
+  WEB_ID: "123456789"
+  WEB_SECRET: "123456789"
+  # 微信移动端
+  APP_ID: "123456789"
+  APP_SECRET: "123456789"
+
+  # 短信验证码相关
+  #key ID
+  SMS_ACCESS_KEY_ID: "45641231"
+  # 密钥
+  SMS_ACCESS_KEY_SECRET: "578578"
+  # 签名
+  SMS_SIGN_NAME: "测试"
+  # 身份验证模板编码
+  AUTHENTICATION: "SMS_12345"
+  # 登陆确认模板编码
+  LOGIN_CONFIRMATION: "SMS_12345"
+  # 登陆异常模板编码
+  LOGIN_EXCEPTION: "SMS_12345"
+  # 用户注册模板编码
+  USER_REGISTRATION: "SMS_12345"
+  # 修改密码模板编码
+  CHANGE_PASSWORD: "SMS_12345"
+  # 信息修改模板编码
+  INFORMATION_CHANGE: "SMS_12345"
+
+  # 自定义字体路径
+  SIM_SUN: ./font
+
+
+
+DEVELOPMENT: &development
+  <<: *common # 继承common，没有重新定义的变量，使用common变量值
+  DEBUG: True
+
+STAGING: &staging
+  <<: *common
+  SECRET_KEY: sortasecure
+
+PRODUCTION: &production
+  <<: *common
+  SECRET_KEY: mdd1##$$%^!DSA#FDSF
+  REDIS_HOST: flask_redis

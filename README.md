@@ -22,7 +22,8 @@ flask后端开发接口示例，利用Flask开发后端API接口。包含基本�
 18. [Flask后端实践  连载十七 Flask实现手机验证码登录注册](https://blog.csdn.net/qq_22034353/article/details/90640981)
 19. [Flask后端实践  连载十八 Flask输出PDF报表](https://blog.csdn.net/qq_22034353/article/details/93191167)
 20. [Flask后端实践  连载十九 Flask工厂模式集成使用Celery](https://blog.csdn.net/qq_22034353/article/details/93893282)
-21. [Python基于Drone的CI-CD（代码检查、测试、构建、部署）实践](https://blog.csdn.net/qq_22034353/article/details/97259264)
+21. [Flask后端实践  连载二十 Flask接口单元测试+测试报告+测试覆盖率](https://blog.csdn.net/qq_22034353/article/details/99715591)
+22. [Python基于Drone的CI-CD（代码检查、测试、构建、部署）实践](https://blog.csdn.net/qq_22034353/article/details/97259264)
 ## 二、部署
 
 ### 1. 拉取代码

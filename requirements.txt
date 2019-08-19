@@ -28,3 +28,4 @@ reportlab==3.5.23
 gunicorn==19.9.0
 eventlet==0.24.1
 celery==4.3.0
+coverage==4.5.4

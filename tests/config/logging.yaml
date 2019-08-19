@@ -1,0 +1,36 @@
+version: 1
+disable_existing_loggers: False
+# 定义日志输出格式，可以有多种格式输出
+formatters:
+  simple:
+      format: "%(message)s"
+  error:
+      format: "%(asctime)s [%(name)s] [%(levelname)s] :%(levelno)s: %(message)s"
+
+# 定义不同的handler，输出不同等级的日志消息
+handlers:
+  console:
+      class: logging.StreamHandler # 输出到控制台
+      level: DEBUG
+      formatter: simple
+      stream: ext://flask.logging.wsgi_errors_stream # 监听flask日志
+  info_file_handler:
+      class: logging.handlers.RotatingFileHandler # 输出到文件
+      level: INFO
+      formatter: simple
+      filename: ./logs/info.log
+      maxBytes: 10485760 # 10MB
+      backupCount: 20 #most 20 extensions
+      encoding: utf8
+  error_file_handler:
+      class: logging.handlers.RotatingFileHandler # 输出到文件
+      level: ERROR
+      formatter: error
+      filename: ./logs/errors.log
+      maxBytes: 10485760 # 10MB
+      backupCount: 20
+      encoding: utf8
+# 启用handler
+root:
+  level: INFO
+  handlers: [console,info_file_handler,error_file_handler]
