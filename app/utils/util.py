@@ -48,7 +48,7 @@ def route(bp, *args, **kwargs):
             else:
                 return jsonify(rv)
 
-        return f
+        return wrapper
 
     return decorator
 
