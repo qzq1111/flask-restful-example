@@ -93,4 +93,4 @@ server {
 
 |微信￥9.9|支付宝￥9.9|
 |---|---|
-|![](https://github.com/qzq1111/flask-restful-example/blob/master/images/wx.png)|![](https://github.com/qzq1111/flask-restful-example/blob/master/images/zfb.png)|
+|![](./images/wx.png)|![](./images/zfb.png)|
