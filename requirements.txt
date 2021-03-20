@@ -15,7 +15,7 @@ Flask-APScheduler==1.11.0
 Flask-SQLAlchemy==2.4.4
 greenlet==0.4.15
 itsdangerous==1.1.0
-Jinja2==2.10.1
+Jinja2==2.11.3
 jmespath==0.10.0
 kombu==5.0.2
 lxml==4.6.2
