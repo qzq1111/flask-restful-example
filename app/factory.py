@@ -87,8 +87,11 @@ def register_api(app, routers):
             try:
                 endpoint = router_api.__name__
                 view_func = router_api.as_view(endpoint)
-                # url默认为类名小写
-                url = '/{}/'.format(router_api.__name__.lower())
+                # 如果没有服务名,默认 类名小写
+                if hasattr(router_api, "service_name"):
+                    url = '/{}/'.format(router_api.service_name.lower())
+                else:
+                    url = '/{}/'.format(router_api.__name__.lower())
                 if 'GET' in router_api.__methods__:
                     app.add_url_rule(url, defaults={'key': None}, view_func=view_func, methods=['GET', ])
                     app.add_url_rule('{}<string:key>'.format(url), view_func=view_func, methods=['GET', ])
