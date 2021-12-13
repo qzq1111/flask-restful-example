@@ -18,7 +18,7 @@ itsdangerous==1.1.0
 Jinja2==2.10.1
 jmespath==0.10.0
 kombu==5.0.2
-lxml==4.6.2
+lxml==4.6.5
 MarkupSafe==1.1.1
 monotonic==1.5
 Pillow==8.1.0
