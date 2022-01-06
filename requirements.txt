@@ -2,7 +2,7 @@ aliyun-python-sdk-core==2.13.4
 amqp==5.0.3
 APScheduler==3.6.0
 billiard==3.6.3.0
-celery==5.0.5
+celery==5.2.2
 Click==7.0
 click-didyoumean==0.0.3
 click-plugins==1.1.1
