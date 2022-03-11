@@ -21,7 +21,7 @@ kombu==5.0.2
 lxml==4.6.2
 MarkupSafe==1.1.1
 monotonic==1.5
-Pillow==8.1.0
+Pillow==9.0.1
 prompt-toolkit==3.0.14
 PyJWT==1.7.1
 PyMySQL==0.9.3
