@@ -23,7 +23,7 @@ MarkupSafe==1.1.1
 monotonic==1.5
 Pillow==8.1.0
 prompt-toolkit==3.0.14
-PyJWT==1.7.1
+PyJWT==2.4.0
 PyMySQL==0.9.3
 python-dateutil==2.8.0
 python-docx==0.8.7
