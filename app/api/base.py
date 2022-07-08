@@ -212,7 +212,7 @@ class BaseParse(object):
         :param value:
         :return:
         """
-        return getattr(self.__model__, key) > value
+        return getattr(self.__model__, key) >= value
 
     def __lt_model(self, key, value):
         """
