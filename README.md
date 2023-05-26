@@ -1,6 +1,16 @@
 # flask-restful-example
 flask后端开发接口示例，利用Flask开发后端API接口。包含基本的项目配置、统一响应、MySQL和Redis数据库操作、定时任务、图片生成、项目部署、用户权限认证、报表输出、无限层级生成目录树、阿里云手机验证码验证、微信授权、Celery、单元测试、Drone等模块。
 
+## 更新内容
+1. [全部内容](https://github.com/qzq1111/flask-restful-example/tree/master)
+    - 所有文章内容
+2. [精简版](https://github.com/qzq1111/flask-restful-example/tree/mini) 
+    - 基本api封装
+    - 数据库操作
+    - 日志处理
+    - 配置文件
+    - docker部署
+
 ## 一、系列文章
 1. [Flask后端实践  连载一 加载yaml配置文件](https://blog.csdn.net/qq_22034353/article/details/88591681)
 2. [Flask后端实践  连载二 yaml配置logger及logger使用](https://blog.csdn.net/qq_22034353/article/details/88629521)
