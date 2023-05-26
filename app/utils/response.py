@@ -1,14 +1,12 @@
 from flask import request, current_app
 
-from app.utils.code import ResponseCode
-
 
 class ResMsg(object):
     """
     封装响应文本
     """
 
-    def __init__(self, data=None, code=ResponseCode.Success, rq=request):
+    def __init__(self, data=None, code=0, rq=request):
         # 获取请求中语言选择,默认为中文
         self.lang = rq.headers.get("lang",
                                    current_app.config.get("LANG", "zh_CN")

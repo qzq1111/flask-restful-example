@@ -11,7 +11,7 @@ RUN apk --update add --no-cache libffi-dev
 RUN apk --update add --no-cache libxslt-dev
 RUN apk --update add --no-cache jpeg-dev
 
-ENV  TIME_ZONE Asia/Shanghai
+ENV TIME_ZONE Asia/Shanghai
 ENV PIPURL "https://pypi.tuna.tsinghua.edu.cn/simple"
 
 RUN echo "${TIME_ZONE}" > /etc/timezone
