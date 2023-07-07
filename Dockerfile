@@ -1,8 +1,8 @@
 FROM python:3.7-alpine
 MAINTAINER QZQ
 
-RUN echo http://mirrors.aliyun.com/alpine/v3.12/main > /etc/apk/repositories
-RUN echo http://mirrors.aliyun.com/alpine/v3.12/community >> /etc/apk/repositories
+RUN echo http://mirrors.aliyun.com/alpine/v3.18/main > /etc/apk/repositories
+RUN echo http://mirrors.aliyun.com/alpine/v3.18/community >> /etc/apk/repositories
 RUN apk update
 RUN apk --update add --no-cache gcc
 RUN apk --update add --no-cache g++
