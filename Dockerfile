@@ -23,9 +23,9 @@ WORKDIR /projects
 COPY . .
 
 RUN pip --no-cache-dir install  -i ${PIPURL} --upgrade pip
+RUN pip --no-cache-dir install  -i ${PIPURL}  eventlet==0.30.2
+RUN pip --no-cache-dir install  -i ${PIPURL}  gunicorn==20.1
 RUN pip --no-cache-dir install  -i ${PIPURL} -r requirements.txt
-RUN pip --no-cache-dir install  -i ${PIPURL}  eventlet
-RUN pip --no-cache-dir install  -i ${PIPURL}  gunicorn
 
 RUN chmod +x run.sh
 CMD ./run.sh
