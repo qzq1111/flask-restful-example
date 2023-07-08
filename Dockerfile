@@ -24,5 +24,7 @@ COPY . .
 
 RUN pip --no-cache-dir install  -i ${PIPURL} --upgrade pip
 RUN pip --no-cache-dir install  -i ${PIPURL} -r requirements.txt
+RUN pip --no-cache-dir install  -i ${PIPURL}  gunicorn
+
 RUN chmod +x run.sh
 CMD ./run.sh
