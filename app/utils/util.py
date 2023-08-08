@@ -7,8 +7,20 @@ from functools import wraps
 
 import redis
 from PIL import Image, ImageFont, ImageDraw
-from flask import jsonify, current_app
+from flask import current_app
 from app.utils.response import ResMsg
+from app.utils.core import JSONEncoder
+from json import dumps as dp
+
+
+def jsonify(*args, **kwargs):
+    return current_app.response_class(
+        dp(*args, **kwargs,
+           sort_keys=current_app.config['JSON_SORT_KEYS'],
+           ensure_ascii=current_app.config['JSON_AS_ASCII'],
+           cls=JSONEncoder),
+        mimetype=current_app.config['JSONIFY_MIMETYPE']
+    )
 
 
 def route(bp, *args, **kwargs):
