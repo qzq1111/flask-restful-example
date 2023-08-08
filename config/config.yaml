@@ -5,6 +5,15 @@ COMMON: &common #标识
   DEFAULT_PAGE_INDEX: 1
   DEFAULT_PAGE_SIZE: 10
 
+  # 返回字段是否排序
+  JSON_SORT_KEYS: False
+
+  # 返回字段编码
+  JSON_AS_ASCII: False
+
+  # 编码格式
+  JSONIFY_MIMETYPE: "application/json;charset=utf-8"
+  
   # 数据库连接
   SQLALCHEMY_DATABASE_URI: 'mysql+pymysql://root:mad123@localhost:3306/test?charset=utf8mb4'
   SQLALCHEMY_TRACK_MODIFICATIONS: False
